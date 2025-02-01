@@ -5,8 +5,9 @@ This extension enables you to resell **MomentMC Minecraft Servers** through your
 ## Requirements  
 
 - A **MomentMC account** with API access.  
-- A **Server** running **Paymenter**.  
+- A **Server** running **Paymenter**.   
 
+**If you do not have Paymenter install, Follow the [Paymenter](https://paymenter.org) docs.
 ## Features  
 
 ✅ **Custom Client Panel** – Redirects customers to a panel where they can fully manage their Minecraft server.  
