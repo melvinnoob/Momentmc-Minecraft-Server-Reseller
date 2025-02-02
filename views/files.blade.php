@@ -543,27 +543,26 @@ document.getElementById('uploadForm').addEventListener('submit', async function(
     const reader = new FileReader();
     reader.onload = function(e) {
         const content = e.target.result;
-        const Path = currentPath + file.name;
+        const Path = currentPath.endsWith('/') ? currentPath + file.name : currentPath + '/' + file.name; 
 
         fetch('{{ route("extensions.momentmcreseller.files.contents.save", ["product" => ":product", "invoice_id" => ":invoice_id"]) }}'
             .replace(":product", ids.productId)
-            .replace(":invoice_id", ids.invoiceId)
-        , {
+            .replace(":invoice_id", ids.invoiceId),
+        {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'X-CSRF-TOKEN': '{{ csrf_token() }}'
             },
             body: JSON.stringify({
-                file: Path, 
+                file: Path,  // Correctly include the directory path
                 content: content
             })
         })
         .then(response => response.json())
         .then(data => {
             if (data.status === 'success') {
-                listFiles(currentPath);
-
+                listFiles(currentPath); // Refresh the file list in the correct directory
             } else {
                 alert("Failed to upload file.");
             }
@@ -575,6 +574,7 @@ document.getElementById('uploadForm').addEventListener('submit', async function(
 
     reader.readAsText(file);
 });
+
 
 listFiles(currentPath);
 
